@@ -38461,8 +38461,9 @@ GameObject:
   - component: {fileID: 1883194295}
   - component: {fileID: 1883194296}
   - component: {fileID: 1883194293}
+  - component: {fileID: 1883194294}
   m_Layer: 0
-  m_Name: Pacman1
+  m_Name: Pacman
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38505,7 +38506,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b3d3320e94ae3244ac77d6e85cc1070, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 63e0997db89281c4f982432ab54ae092, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -38551,6 +38552,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &1883194294
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883194290}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28473ff7a34bb974ca095f0bb44ea478, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1883194295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38563,6 +38583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d566064daeae3d84298b77d4ea61105d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ani: {fileID: 1883194294}
 --- !u!58 &1883194296
 CircleCollider2D:
   m_ObjectHideFlags: 0
