@@ -6,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private int direction = 0;
-    private float movement = 0.05f;
+    private float movementPerSecond = 3f;
     public Animator ani;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 10;
     }
 
     // Update is called once per frame
@@ -44,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
             ani.SetBool("Moving", false);
         }
 
+        float movement = movementPerSecond * Time.deltaTime;
+        
         if (direction == 1)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 90f);
