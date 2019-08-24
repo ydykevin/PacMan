@@ -5,6 +5,10 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
     public int ghost; // 1=Green(Random), 2=Pink(Clockwise), 3=Blue(Run), 4=Red(Chase)
+    public GameObject over;
+    public Animator ani;
+    public GameObject life3;
+    public GameObject life2;
     private int direction = 0; // 0=idle, 1=up, 2=down, 3=left, 4=right
     private List<GhostMovement> arr = new List<GhostMovement>();
     private float movement;
@@ -27,31 +31,28 @@ public class Ghost : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement = Global.ghostSpeed * Time.deltaTime;
-        detectOpenArea();
-        //Select moving pattern
-        if (ghost == 1)
+        if (!Global.finish)
         {
-            movePattern1();
+            movement = Global.ghostSpeed * Time.deltaTime;
+            detectOpenArea();
+            //Select moving pattern
+            if (ghost == 1)
+            {
+                movePattern1();
+            }
+            else if (ghost == 2)
+            {
+                movePattern2();
+            }
+            else if (ghost == 3)
+            {
+                movePattern3();
+            }
+            else if (ghost == 4)
+            {
+                movePattern4();
+            }
         }
-        else if (ghost == 2)
-        {
-            movePattern2();
-        }
-        else if (ghost == 3)
-        {
-            movePattern3();
-        }
-        else if (ghost == 4)
-        {
-            movePattern4();
-        }
-    }
-
-    public void resetDirection()
-    {
-        Debug.Log("reset");
-        direction = 0;
     }
 
     void detectOpenArea()
@@ -131,22 +132,18 @@ public class Ghost : MonoBehaviour
             if (direction == 1)
             {
                 selectClockwisePath(up, right, left, 1, 4, 3);
-                //selectClockwisePath(1);
             }
             else if (direction == 2)
             {
                 selectClockwisePath(down, left, right, 2, 3, 4);
-                //selectClockwisePath(2);
             }
             else if (direction == 3)
             {
                 selectClockwisePath(left, up, down, 3, 1, 2);
-                //selectClockwisePath(3);
             }
             else if (direction == 4)
             {
                 selectClockwisePath(right, down, up, 4, 2, 1);
-                //selectClockwisePath(4);
             }
         }
 
@@ -368,7 +365,7 @@ public class Ghost : MonoBehaviour
     bool atJunction()
     {
         //Only one open direction or two open opposite directions, keep moving
-        if ((arr.Count == 0) || (arr.Count == 1 && direction != 0) || (arr.Count == 2 && arr[0].dv == -arr[1].dv && direction!=0))
+        if ((arr.Count == 0) || (arr.Count == 1 && direction != 0) || (arr.Count == 2 && arr[0].dv == -arr[1].dv && direction != 0))
         {
             move();
             return false;
@@ -381,26 +378,105 @@ public class Ghost : MonoBehaviour
     {
         if (direction == 1)
         {
-            //transform.rotation = Quaternion.Euler(0f, 0f, 90f);
             transform.position = new Vector2(transform.position.x, transform.position.y + movement);
         }
         else if (direction == 2)
         {
-            //transform.rotation = Quaternion.Euler(0f, 0f, -90f);
             transform.position = new Vector2(transform.position.x, transform.position.y - movement);
         }
         else if (direction == 3)
         {
-            //transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             transform.position = new Vector2(transform.position.x - movement, transform.position.y);
         }
         else if (direction == 4)
         {
-            //transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             transform.position = new Vector2(transform.position.x + movement, transform.position.y);
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            ani.SetBool("Die", true);
+            Global.finish = true;
+            if (Global.life != 1)
+            {
+                StartCoroutine(Delay1());
+                Global.life--;
+            }
+            else
+            {
+                StartCoroutine(Delay2());
+            }
+        }
+    }
+
+    IEnumerator Delay1()
+    {
+        yield return new WaitForSeconds(5);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Animator>().SetBool("Die", false);
+        player.GetComponent<Player>().resetPosition();
+        player.GetComponent<Player>().stopMoving();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost"))
+        {
+            g.GetComponent<Ghost>().resetPosition();
+        }
+        if (Global.life == 2)
+        {
+            life3.SetActive(false);
+        }
+        else if (Global.life == 1)
+        {
+            life2.SetActive(false);
+        }
+        Global.finish = false;
+    }
+
+    IEnumerator Delay2()
+    {
+        yield return new WaitForSeconds(5);
+        over.SetActive(true);
+    }
+
+    public void resetPosition()
+    {
+        if (ghost == 1)
+        {
+            transform.position = Global.g1Position;
+        }
+        else if (ghost == 2)
+        {
+            transform.position = Global.g2Position;
+        }
+        else if (ghost == 3)
+        {
+            transform.position = Global.g3Position;
+        }
+        else if (ghost == 4)
+        {
+            transform.position = Global.g4Position;
+        }
+    }
+
+    public void stopMoving()
+    {
+        Debug.Log("reset");
+        direction = 0;
+    }
+
+    public void setPortalPosition(bool toRight)
+    {
+        if (toRight)
+        {
+            transform.position = Global.rightPortal;
+        }
+        else
+        {
+            transform.position = Global.leftPortal;
+        }
+    }
 
 }
 

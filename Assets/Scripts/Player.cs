@@ -11,67 +11,85 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 60;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!Global.finish)
         {
-            direction = 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            direction = 2;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            direction = 3;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            direction = 4;
-        }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                direction = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                direction = 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                direction = 3;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                direction = 4;
+            }
 
-        if (direction != 0)
-        {
-            ani.SetBool("Moving", true);
-        }
-        else
-        {
-            ani.SetBool("Moving", false);
-        }
-        
-        float movement = Global.playerSpeed * Time.deltaTime;
+            if (direction != 0)
+            {
+                ani.SetBool("Moving", true);
+            }
+            else
+            {
+                ani.SetBool("Moving", false);
+            }
 
-        if (direction == 1)
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-            transform.position = new Vector2(transform.position.x, transform.position.y + movement);
-        }
-        else if (direction == 2)
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-            transform.position = new Vector2(transform.position.x, transform.position.y - movement);
-        }
-        else if (direction == 3)
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-            transform.position = new Vector2(transform.position.x - movement, transform.position.y);
-        }
-        else if (direction == 4)
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            transform.position = new Vector2(transform.position.x + movement, transform.position.y);
-        }
+            float movement = Global.playerSpeed * Time.deltaTime;
 
+            if (direction == 1)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                transform.position = new Vector2(transform.position.x, transform.position.y + movement);
+            }
+            else if (direction == 2)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                transform.position = new Vector2(transform.position.x, transform.position.y - movement);
+            }
+            else if (direction == 3)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                transform.position = new Vector2(transform.position.x - movement, transform.position.y);
+            }
+            else if (direction == 4)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                transform.position = new Vector2(transform.position.x + movement, transform.position.y);
+            }
+        }
     }
 
     public void stopMoving()
     {
         direction = 0;
+    }
+
+    public void setPortalPosition(bool toRight)
+    {
+        if (toRight)
+        {
+            transform.position = Global.rightPortal;
+        }
+        else
+        {
+            transform.position = Global.leftPortal;
+        }
+    }
+
+    public void resetPosition()
+    {
+        transform.position = Global.pPosition;
     }
 
 }

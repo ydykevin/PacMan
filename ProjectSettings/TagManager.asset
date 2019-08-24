@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Level
   - Ghost
+  - Canvas
+  - Over
+  - Win
   layers:
   - Default
   - TransparentFX

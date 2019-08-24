@@ -23,7 +23,7 @@ public class Wall : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().stopMoving();
         } else if (collision.tag == "Ghost")
         {
-            collision.gameObject.GetComponent<Ghost>().resetDirection();
+            collision.gameObject.GetComponent<Ghost>().stopMoving();
         }
     }
 
