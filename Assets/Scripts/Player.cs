@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     // Update is called once per frame

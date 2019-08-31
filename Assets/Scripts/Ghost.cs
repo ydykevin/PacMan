@@ -26,6 +26,7 @@ public class Ghost : MonoBehaviour
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), g.GetComponent<Collider2D>());
         }
+        GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     // Update is called once per frame
@@ -462,7 +463,7 @@ public class Ghost : MonoBehaviour
 
     public void stopMoving()
     {
-        Debug.Log("reset");
+        //Debug.Log("reset");
         direction = 0;
     }
 

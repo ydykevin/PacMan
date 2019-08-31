@@ -14,7 +14,16 @@ public class Global
     public static Vector2 g2Position = new Vector2(0, 0.5f);
     public static Vector2 g3Position = new Vector2(-1, 0.5f);
     public static Vector2 g4Position = new Vector2(1, 0.5f);
-    public static bool finish = false; // Game state
+    public static bool finish = false; //Game state
     public static int life = 3;
-    
+    public static List<bool> sArr;
+
+    public static void resetSArr()
+    {
+        sArr = new List<bool>();
+        sArr.Add(false);
+        sArr.Add(false);
+        sArr.Add(false);
+        sArr.Add(false);
+    }
 }

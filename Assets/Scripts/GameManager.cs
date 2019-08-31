@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     {
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 60;
+        Global.resetSArr();
     }
 
     // Update is called once per frame
