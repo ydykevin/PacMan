@@ -418,8 +418,8 @@ public class Ghost : MonoBehaviour
         yield return new WaitForSeconds(5);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Animator>().SetBool("Die", false);
-        player.GetComponent<Player>().resetPosition();
         player.GetComponent<Player>().stopMoving();
+        player.GetComponent<Player>().resetPosition();
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost"))
         {
             g.GetComponent<Ghost>().resetPosition();

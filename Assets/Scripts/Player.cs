@@ -6,12 +6,13 @@ public class Player : MonoBehaviour
 {
 
     private int direction = 0; // 0=idle, 1=up, 2=down, 3=left, 4=right
+    private Vector3 lastPosition;
     public Animator ani;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody2D>().isKinematic = false;
+        //GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     // Update is called once per frame
@@ -50,21 +51,25 @@ public class Player : MonoBehaviour
             if (direction == 1)
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                lastPosition = transform.position;
                 transform.position = new Vector2(transform.position.x, transform.position.y + movement);
             }
             else if (direction == 2)
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                lastPosition = transform.position;
                 transform.position = new Vector2(transform.position.x, transform.position.y - movement);
             }
             else if (direction == 3)
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                lastPosition = transform.position;
                 transform.position = new Vector2(transform.position.x - movement, transform.position.y);
             }
             else if (direction == 4)
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                lastPosition = transform.position;
                 transform.position = new Vector2(transform.position.x + movement, transform.position.y);
             }
         }
@@ -73,6 +78,7 @@ public class Player : MonoBehaviour
     public void stopMoving()
     {
         direction = 0;
+        transform.position = 2 * (lastPosition - transform.position) + lastPosition;
     }
 
     public void setPortalPosition(bool toRight)
