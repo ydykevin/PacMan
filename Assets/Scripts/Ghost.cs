@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ghost : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class Ghost : MonoBehaviour
     public Animator ani;
     public GameObject life3;
     public GameObject life2;
+    public Text score;
     private int direction = 0; // 0=idle, 1=up, 2=down, 3=left, 4=right
+    private Vector3 lastPosition;
     private List<GhostMovement> arr = new List<GhostMovement>();
     private float movement;
     private float detectRad;
@@ -17,11 +20,13 @@ public class Ghost : MonoBehaviour
     private bool down;
     private bool left;
     private bool right;
+    private SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] gArr = GameObject.FindGameObjectsWithTag("Ghost");
+        sr = gameObject.GetComponent<SpriteRenderer>();
         foreach (GameObject g in gArr)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), g.GetComponent<Collider2D>());
@@ -37,21 +42,33 @@ public class Ghost : MonoBehaviour
             movement = Global.ghostSpeed * Time.deltaTime;
             detectOpenArea();
             //Select moving pattern
-            if (ghost == 1)
+            if (Global.super)
             {
+                sr.color = Color.white;
                 movePattern1();
             }
-            else if (ghost == 2)
+            else
             {
-                movePattern2();
-            }
-            else if (ghost == 3)
-            {
-                movePattern3();
-            }
-            else if (ghost == 4)
-            {
-                movePattern4();
+                if (sr.color == Color.white)
+                {
+                    resetColor();
+                }
+                if (ghost == 1)
+                {
+                    movePattern1();
+                }
+                else if (ghost == 2)
+                {
+                    movePattern2();
+                }
+                else if (ghost == 3)
+                {
+                    movePattern3();
+                }
+                else if (ghost == 4)
+                {
+                    movePattern4();
+                }
             }
         }
     }
@@ -379,18 +396,22 @@ public class Ghost : MonoBehaviour
     {
         if (direction == 1)
         {
+            lastPosition = transform.position;
             transform.position = new Vector2(transform.position.x, transform.position.y + movement);
         }
         else if (direction == 2)
         {
+            lastPosition = transform.position;
             transform.position = new Vector2(transform.position.x, transform.position.y - movement);
         }
         else if (direction == 3)
         {
+            lastPosition = transform.position;
             transform.position = new Vector2(transform.position.x - movement, transform.position.y);
         }
         else if (direction == 4)
         {
+            lastPosition = transform.position;
             transform.position = new Vector2(transform.position.x + movement, transform.position.y);
         }
     }
@@ -399,17 +420,26 @@ public class Ghost : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            ani.SetBool("Die", true);
-            Global.finish = true;
-            if (Global.life != 1)
+            if (Global.super)
             {
-                StartCoroutine(Delay1());
-                Global.life--;
+                score.text = (int.Parse(score.text) + 30) + "";
+                resetPosition();
             }
             else
             {
-                StartCoroutine(Delay2());
+                ani.SetBool("Die", true);
+                Global.finish = true;
+                if (Global.life != 1)
+                {
+                    StartCoroutine(Delay1());
+                    Global.life--;
+                }
+                else
+                {
+                    StartCoroutine(Delay2());
+                }
             }
+
         }
     }
 
@@ -441,6 +471,25 @@ public class Ghost : MonoBehaviour
         over.SetActive(true);
     }
 
+    public void resetColor() {
+        if (ghost == 1)
+        {
+            sr.color = new Color(0,224f/255f,50f/255f,1);
+        }
+        else if (ghost == 2)
+        {
+            sr.color = new Color(1, 50f / 255f, 1, 1);
+        }
+        else if (ghost == 3)
+        {
+            sr.color = new Color(0, 205f / 255f, 1, 1);
+        }
+        else if (ghost == 4)
+        {
+            sr.color = new Color(1, 50f / 255f, 0, 1);
+        }
+    }
+
     public void resetPosition()
     {
         if (ghost == 1)
@@ -463,8 +512,8 @@ public class Ghost : MonoBehaviour
 
     public void stopMoving()
     {
-        //Debug.Log("reset");
         direction = 0;
+        //transform.position = 2 * (lastPosition - transform.position) + lastPosition;
     }
 
     public void setPortalPosition(bool toRight)

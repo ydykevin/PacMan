@@ -6,11 +6,12 @@ public class Superpill : MonoBehaviour
 {
 
     public int index;
+    private Renderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rend = gameObject.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -21,18 +22,21 @@ public class Superpill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player"&&rend.enabled)
         {
-            //Global.super = true;
+            Debug.Log("start");
+            Global.super = true;
             StartCoroutine(Delay());
-            gameObject.SetActive(false);
+            gameObject.GetComponent<Renderer>().enabled = false;
+            //gameObject.SetActive(false);
         }
     }
 
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds(5);
-        //Global.super = false;
+        yield return new WaitForSeconds(6);
+        Global.super = false;
+        Debug.Log("end");
     }
 
 }

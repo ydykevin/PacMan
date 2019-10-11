@@ -6,7 +6,7 @@ using UnityEngine;
 public class Global
 {
     public static float playerSpeed = 3f; //Unit per second
-    public static float ghostSpeed = 3.01f; //Unit per second
+    public static float ghostSpeed = 2.8f; //Unit per second
     public static Vector2 leftPortal = new Vector2(-9, 0.5f);
     public static Vector2 rightPortal = new Vector2(9, 0.5f);
     public static Vector2 pPosition = new Vector2(0, -5.5f);
@@ -16,6 +16,7 @@ public class Global
     public static Vector2 g4Position = new Vector2(1, 0.5f);
     public static bool finish = false; //Game state
     public static int life = 3;
+    public static bool super = false;
     public static List<bool> sArr;
 
     public static void resetSArr()
@@ -26,4 +27,5 @@ public class Global
         sArr.Add(false);
         sArr.Add(false);
     }
+
 }

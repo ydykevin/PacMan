@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     // Update is called once per frame
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
     public void stopMoving()
     {
         direction = 0;
-        transform.position = 2 * (lastPosition - transform.position) + lastPosition;
+        //transform.position = 2 * (lastPosition - transform.position) + lastPosition;
     }
 
     public void setPortalPosition(bool toRight)

@@ -1391,7 +1391,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Name
-      value: super pill (2)
+      value: super pill 2
       objectReference: {fileID: 0}
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Layer
@@ -3279,7 +3279,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Name
-      value: super pill (3)
+      value: super pill 1
       objectReference: {fileID: 0}
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Layer
@@ -8038,6 +8038,7 @@ MonoBehaviour:
   ani: {fileID: 1883194294}
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
+  score: {fileID: 309962263}
 --- !u!50 &194456059
 Rigidbody2D:
   serializedVersion: 4
@@ -17025,6 +17026,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
+      propertyPath: m_Name
+      value: super pill 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4595370946973710, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8
@@ -21189,7 +21194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Name
-      value: super pill (1)
+      value: super pill 4
       objectReference: {fileID: 0}
     - target: {fileID: 1588834482464816, guid: 5d8a90c3035adbe4995eb22800fb70fe, type: 3}
       propertyPath: m_Layer
@@ -26740,8 +26745,9 @@ GameObject:
   - component: {fileID: 531597581}
   - component: {fileID: 866918122}
   - component: {fileID: 866918121}
+  - component: {fileID: 866918123}
   m_Layer: 2
-  m_Name: super pill
+  m_Name: super pill 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26813,6 +26819,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &866918123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866918120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383d4588a383e94fbe19f2ce2f1a330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 3
 --- !u!1 &869130659
 GameObject:
   m_ObjectHideFlags: 0
@@ -31022,8 +31041,9 @@ GameObject:
   - component: {fileID: 36762146}
   - component: {fileID: 1016651568}
   - component: {fileID: 1016651567}
+  - component: {fileID: 1016651569}
   m_Layer: 2
-  m_Name: super pill (2)
+  m_Name: super pill 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31095,6 +31115,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1016651569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016651566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383d4588a383e94fbe19f2ce2f1a330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!1 &1018095188
 GameObject:
   m_ObjectHideFlags: 0
@@ -37777,8 +37810,9 @@ GameObject:
   - component: {fileID: 74761211}
   - component: {fileID: 1269635781}
   - component: {fileID: 1269635780}
+  - component: {fileID: 1269635782}
   m_Layer: 2
-  m_Name: super pill (3)
+  m_Name: super pill 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37850,6 +37884,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1269635782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269635779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383d4588a383e94fbe19f2ce2f1a330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 1
 --- !u!1 &1275903069
 GameObject:
   m_ObjectHideFlags: 0
@@ -43538,8 +43585,9 @@ GameObject:
   - component: {fileID: 684432991}
   - component: {fileID: 1460755515}
   - component: {fileID: 1460755514}
+  - component: {fileID: 1460755516}
   m_Layer: 2
-  m_Name: super pill (1)
+  m_Name: super pill 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43611,6 +43659,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1460755516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460755513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383d4588a383e94fbe19f2ce2f1a330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 4
 --- !u!1 &1465087781
 GameObject:
   m_ObjectHideFlags: 0
@@ -45739,6 +45800,7 @@ MonoBehaviour:
   ani: {fileID: 1883194294}
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
+  score: {fileID: 309962263}
 --- !u!50 &1507181054
 Rigidbody2D:
   serializedVersion: 4
@@ -50120,6 +50182,7 @@ MonoBehaviour:
   ani: {fileID: 1883194294}
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
+  score: {fileID: 309962263}
 --- !u!50 &1684888334
 Rigidbody2D:
   serializedVersion: 4
@@ -59425,6 +59488,7 @@ MonoBehaviour:
   ani: {fileID: 1883194294}
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
+  score: {fileID: 309962263}
 --- !u!95 &2047532014
 Animator:
   serializedVersion: 3
