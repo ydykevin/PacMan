@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class ScreenManager : MonoBehaviour
     {
         
     }
+    void Update()
+    {
+        
+    }
 
-    public void exit()
+    /*public void exit()
     {
         if (UnityEditor.EditorApplication.isPlaying)
         {
@@ -29,6 +34,11 @@ public class ScreenManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }*/
+
+    public void menu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void newLevel()
@@ -55,7 +65,7 @@ public class ScreenManager : MonoBehaviour
         }
         foreach (Transform child in spArr.transform)
         {
-            child.gameObject.SetActive(true);
+            child.gameObject.GetComponent<Renderer>().enabled = true;
         }
         
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().resetPosition();
