@@ -227,9 +227,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 126769110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89cda9743930e1442bba7b63361cf6fc, type: 3}
+  m_Script: {fileID: 11500000, guid: feeee3d4506c28f4d90c4ab8def9119d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pArr: {fileID: 0}
+  spArr: {fileID: 0}
+  spArr2: {fileID: 0}
+  over: {fileID: 0}
+  win: {fileID: 0}
+  score: {fileID: 0}
+  life3: {fileID: 0}
+  life2: {fileID: 0}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
+  pArr2: {fileID: 0}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
 --- !u!81 &126769112
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1114,7 +1127,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1836242907}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 126769111}
+        m_MethodName: multi
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1836242907

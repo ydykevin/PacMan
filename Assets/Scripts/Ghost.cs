@@ -11,6 +11,15 @@ public class Ghost : MonoBehaviour
     public GameObject life3;
     public GameObject life2;
     public Text score;
+    public GameObject player;
+    public Text mScore1;
+    public Text mScore2;
+    public Text win1;
+    public Text win2;
+    public GameObject pArr;
+    public GameObject pArr2;
+    public GameObject spArr;
+    public GameObject spArr2;
     private int direction = 0; // 0=idle, 1=up, 2=down, 3=left, 4=right
     private Vector3 lastPosition;
     private List<GhostMovement> arr = new List<GhostMovement>();
@@ -25,7 +34,7 @@ public class Ghost : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] gArr = GameObject.FindGameObjectsWithTag("Ghost");
+        GameObject[] gArr = GameObject.FindGameObjectsWithTag(tag);
         sr = gameObject.GetComponent<SpriteRenderer>();
         foreach (GameObject g in gArr)
         {
@@ -42,32 +51,96 @@ public class Ghost : MonoBehaviour
             movement = Global.ghostSpeed * Time.deltaTime;
             detectOpenArea();
             //Select moving pattern
-            if (Global.super)
+            if (tag == "Ghost")
             {
-                sr.color = Color.white;
-                movePattern1();
-            }
-            else
-            {
-                if (sr.color == Color.white)
+                if (Global.super)
                 {
-                    resetColor();
-                }
-                if (ghost == 1)
-                {
+                    sr.color = Color.white;
                     movePattern1();
                 }
-                else if (ghost == 2)
+                else
                 {
-                    movePattern2();
+                    if (sr.color == Color.white)
+                    {
+                        resetColor();
+                    }
+                    if (ghost == 1)
+                    {
+                        movePattern1();
+                    }
+                    else if (ghost == 2)
+                    {
+                        movePattern2();
+                    }
+                    else if (ghost == 3)
+                    {
+                        movePattern3();
+                    }
+                    else if (ghost == 4)
+                    {
+                        movePattern4();
+                    }
                 }
-                else if (ghost == 3)
+            }else if (tag == "Ghost1")
+            {
+                if (Global.super1)
                 {
-                    movePattern3();
+                    sr.color = Color.white;
+                    movePattern1();
                 }
-                else if (ghost == 4)
+                else
                 {
-                    movePattern4();
+                    if (sr.color == Color.white)
+                    {
+                        resetColor();
+                    }
+                    if (ghost == 1)
+                    {
+                        movePattern1();
+                    }
+                    else if (ghost == 2)
+                    {
+                        movePattern2();
+                    }
+                    else if (ghost == 3)
+                    {
+                        movePattern3();
+                    }
+                    else if (ghost == 4)
+                    {
+                        movePattern4();
+                    }
+                }
+            }
+            else if (tag == "Ghost2")
+            {
+                if (Global.super2)
+                {
+                    sr.color = Color.white;
+                    movePattern1();
+                }
+                else
+                {
+                    if (sr.color == Color.white)
+                    {
+                        resetColor();
+                    }
+                    if (ghost == 1)
+                    {
+                        movePattern1();
+                    }
+                    else if (ghost == 2)
+                    {
+                        movePattern2();
+                    }
+                    else if (ghost == 3)
+                    {
+                        movePattern3();
+                    }
+                    else if (ghost == 4)
+                    {
+                        movePattern4();
+                    }
                 }
             }
         }
@@ -230,8 +303,8 @@ public class Ghost : MonoBehaviour
     {
         if (atJunction())
         {
-            float x = GameObject.FindGameObjectWithTag("Player").transform.position.x - transform.position.x;
-            float y = GameObject.FindGameObjectWithTag("Player").transform.position.y - transform.position.y;
+            float x = player.transform.position.x - transform.position.x;
+            float y = player.transform.position.y - transform.position.y;
             if (Mathf.Abs(x) > Mathf.Abs(y))
             {
                 if (x < 0)
@@ -289,8 +362,8 @@ public class Ghost : MonoBehaviour
     {
         if (atJunction())
         {
-            float x = GameObject.FindGameObjectWithTag("Player").transform.position.x - transform.position.x;
-            float y = GameObject.FindGameObjectWithTag("Player").transform.position.y - transform.position.y;
+            float x = player.transform.position.x - transform.position.x;
+            float y = player.transform.position.y - transform.position.y;
             if (Mathf.Abs(x) > Mathf.Abs(y))
             {
                 if (x < 0)
@@ -431,26 +504,67 @@ public class Ghost : MonoBehaviour
                 Global.finish = true;
                 if (Global.life != 1)
                 {
-                    StartCoroutine(Delay1());
+                    StartCoroutine(singleDie());
                     Global.life--;
                 }
                 else
                 {
-                    StartCoroutine(Delay2());
+                    StartCoroutine(singleOver());
                 }
             }
-
+        }else if (collision.gameObject.tag == "Player1")
+        {
+            if (Global.super1)
+            {
+                resetPosition();
+            }
+            else
+            {
+                ani.SetBool("Die", true);
+                Global.finish = true;
+                Global.score2++;
+                mScore2.text = "          " + Global.score2;
+                if (Global.score2!=Global.toWin)
+                {
+                    StartCoroutine(multiDie());
+                }
+                else
+                {
+                    StartCoroutine(p2Win());
+                }
+            }
+        }
+        else if (collision.gameObject.tag == "Player2")
+        {
+            if (Global.super2)
+            {
+                resetPosition();
+            }
+            else
+            {
+                ani.SetBool("Die", true);
+                Global.finish = true;
+                Global.score1++;
+                mScore1.text = Global.score1 + "          ";
+                if (Global.score1 != Global.toWin)
+                {
+                    StartCoroutine(multiDie());
+                }
+                else
+                {
+                    StartCoroutine(p1Win());
+                }
+            }
         }
     }
 
-    IEnumerator Delay1()
+    IEnumerator singleDie()
     {
         yield return new WaitForSeconds(5);
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Animator>().SetBool("Die", false);
         player.GetComponent<Player>().stopMoving();
         player.GetComponent<Player>().resetPosition();
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost"))
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag(tag))
         {
             g.GetComponent<Ghost>().resetPosition();
         }
@@ -462,15 +576,78 @@ public class Ghost : MonoBehaviour
         {
             life2.SetActive(false);
         }
-        Global.finish = false;
+        StartCoroutine(delay());
     }
-
-    IEnumerator Delay2()
+    
+    IEnumerator singleOver()
     {
         yield return new WaitForSeconds(5);
         over.SetActive(true);
     }
 
+    IEnumerator multiDie()
+    {
+        yield return new WaitForSeconds(5);
+        GameObject player = GameObject.FindGameObjectWithTag("Player1");
+        player.GetComponent<Animator>().SetBool("Die", false);
+        player.GetComponent<Player>().stopMoving();
+        player.GetComponent<Player>().resetPosition();
+        player = GameObject.FindGameObjectWithTag("Player2");
+        player.GetComponent<Animator>().SetBool("Die", false);
+        player.GetComponent<Player>().stopMoving();
+        player.GetComponent<Player>().resetPosition();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost1"))
+        {
+            g.GetComponent<Ghost>().resetPosition();
+            g.GetComponent<Ghost>().resetColor();
+        }
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost2"))
+        {
+            g.GetComponent<Ghost>().resetPosition();
+            g.GetComponent<Ghost>().resetColor();
+        }
+        resetPill();
+        StartCoroutine(delay());
+    }
+
+    void resetPill()
+    {
+        foreach (Transform child in pArr.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        foreach (Transform child in spArr.transform)
+        {
+            child.gameObject.GetComponent<Renderer>().enabled = true;
+        }
+        foreach (Transform child in pArr2.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        foreach (Transform child in spArr2.transform)
+        {
+            child.gameObject.GetComponent<Renderer>().enabled = true;
+        }
+    }
+
+    IEnumerator delay()
+    {
+        yield return new WaitForSeconds(3);
+        Global.finish = false;
+    }
+
+    IEnumerator p1Win()
+    {
+        yield return new WaitForSeconds(3);
+        win1.gameObject.SetActive(true);
+    }
+
+    IEnumerator p2Win()
+    {
+        yield return new WaitForSeconds(3);
+        win2.gameObject.SetActive(true);
+    }
+    
     public void resetColor() {
         if (ghost == 1)
         {
@@ -492,21 +669,61 @@ public class Ghost : MonoBehaviour
 
     public void resetPosition()
     {
-        if (ghost == 1)
+        if (tag == "Ghost")
         {
-            transform.position = Global.g1Position;
+            if (ghost == 1)
+            {
+                transform.position = Global.g1Position;
+            }
+            else if (ghost == 2)
+            {
+                transform.position = Global.g2Position;
+            }
+            else if (ghost == 3)
+            {
+                transform.position = Global.g3Position;
+            }
+            else if (ghost == 4)
+            {
+                transform.position = Global.g4Position;
+            }
+        }else if (tag == "Ghost1")
+        {
+            if (ghost == 1)
+            {
+                transform.position = Global.g1Position1;
+            }
+            else if (ghost == 2)
+            {
+                transform.position = Global.g2Position1;
+            }
+            else if (ghost == 3)
+            {
+                transform.position = Global.g3Position1;
+            }
+            else if (ghost == 4)
+            {
+                transform.position = Global.g4Position1;
+            }
         }
-        else if (ghost == 2)
+        else if (tag == "Ghost2")
         {
-            transform.position = Global.g2Position;
-        }
-        else if (ghost == 3)
-        {
-            transform.position = Global.g3Position;
-        }
-        else if (ghost == 4)
-        {
-            transform.position = Global.g4Position;
+            if (ghost == 1)
+            {
+                transform.position = Global.g1Position2;
+            }
+            else if (ghost == 2)
+            {
+                transform.position = Global.g2Position2;
+            }
+            else if (ghost == 3)
+            {
+                transform.position = Global.g3Position2;
+            }
+            else if (ghost == 4)
+            {
+                transform.position = Global.g4Position2;
+            }
         }
     }
 
@@ -516,15 +733,39 @@ public class Ghost : MonoBehaviour
         //transform.position = 2 * (lastPosition - transform.position) + lastPosition;
     }
 
-    public void setPortalPosition(bool toRight)
+    public void setPortalPosition(bool isLeft)
     {
-        if (toRight)
+        if (tag == "Ghost")
         {
-            transform.position = Global.rightPortal;
+            if (isLeft)
+            {
+                transform.position = Global.goRight;
+            }
+            else
+            {
+                transform.position = Global.goLeft;
+            }
+        }else if (tag=="Ghost1")
+        {
+            if (isLeft)
+            {
+                transform.position = Global.goRight1;
+            }
+            else
+            {
+                transform.position = Global.goLeft1;
+            }
         }
-        else
+        else if (tag == "Ghost2")
         {
-            transform.position = Global.leftPortal;
+            if (isLeft)
+            {
+                transform.position = Global.goRight2;
+            }
+            else
+            {
+                transform.position = Global.goLeft2;
+            }
         }
     }
 

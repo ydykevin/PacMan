@@ -8,6 +8,10 @@ TagManager:
   - Canvas
   - Over
   - Win
+  - Player1
+  - Player2
+  - Ghost1
+  - Ghost2
   layers:
   - Default
   - TransparentFX

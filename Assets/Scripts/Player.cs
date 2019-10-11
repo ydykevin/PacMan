@@ -20,22 +20,44 @@ public class Player : MonoBehaviour
     {
         if (!Global.finish)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (tag=="Player"||tag=="Player2")
             {
-                direction = 1;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    direction = 1;
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    direction = 2;
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    direction = 3;
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    direction = 4;
+                }
+            }else if (tag == "Player1")
             {
-                direction = 2;
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    direction = 1;
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    direction = 2;
+                }
+                else if (Input.GetKeyDown(KeyCode.A))
+                {
+                    direction = 3;
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    direction = 4;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                direction = 3;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                direction = 4;
-            }
+            
 
             if (direction != 0)
             {
@@ -81,21 +103,56 @@ public class Player : MonoBehaviour
         //transform.position = 2 * (lastPosition - transform.position) + lastPosition;
     }
 
-    public void setPortalPosition(bool toRight)
+    public void setPortalPosition(bool isLeft)
     {
-        if (toRight)
+        if (tag == "Player")
         {
-            transform.position = Global.rightPortal;
+            if (isLeft)
+            {
+                transform.position = Global.goRight;
+            }
+            else
+            {
+                transform.position = Global.goLeft;
+            }
         }
-        else
+        else if (tag == "Player1")
         {
-            transform.position = Global.leftPortal;
+            if (isLeft)
+            {
+                transform.position = Global.goRight1;
+            }
+            else
+            {
+                transform.position = Global.goLeft1;
+            }
+        }
+        else if (tag == "Player2")
+        {
+            if (isLeft)
+            {
+                transform.position = Global.goRight2;
+            }
+            else
+            {
+                transform.position = Global.goLeft2;
+            }
         }
     }
 
     public void resetPosition()
     {
-        transform.position = Global.pPosition;
+        if (tag == "Player")
+        {
+            transform.position = Global.pPosition;
+        }else if (tag == "Player1")
+        {
+            transform.position = Global.pPosition1;
+        }
+        else if (tag == "Player2")
+        {
+            transform.position = Global.pPosition2;
+        }
     }
 
 }

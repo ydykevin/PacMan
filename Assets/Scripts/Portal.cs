@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public bool toRight;
+    public bool isLeft;
     private float anglePerSecond = -180;
 
     // Start is called before the first frame update
@@ -21,13 +21,13 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Player1" || collision.tag == "Player2")
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().setPortalPosition(toRight);
+            collision.gameObject.GetComponent<Player>().setPortalPosition(isLeft);
         }
-        else if (collision.tag == "Ghost")
+        else if (collision.tag == "Ghost" || collision.tag == "Ghost1" || collision.tag == "Ghost2")
         {
-            collision.gameObject.GetComponent<Ghost>().setPortalPosition(toRight);
+            collision.gameObject.GetComponent<Ghost>().setPortalPosition(isLeft);
         }
     }
 }

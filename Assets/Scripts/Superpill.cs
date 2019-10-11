@@ -24,11 +24,20 @@ public class Superpill : MonoBehaviour
     {
         if (collision.tag == "Player"&&rend.enabled)
         {
-            Debug.Log("start");
             Global.super = true;
             StartCoroutine(Delay());
             gameObject.GetComponent<Renderer>().enabled = false;
-            //gameObject.SetActive(false);
+        }else if (collision.tag == "Player1" && rend.enabled)
+        {
+            Global.super1 = true;
+            StartCoroutine(Delay1());
+            gameObject.GetComponent<Renderer>().enabled = false;
+        }
+        else if (collision.tag == "Player2" && rend.enabled)
+        {
+            Global.super2 = true;
+            StartCoroutine(Delay2());
+            gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -36,7 +45,18 @@ public class Superpill : MonoBehaviour
     {
         yield return new WaitForSeconds(6);
         Global.super = false;
-        Debug.Log("end");
+    }
+
+    IEnumerator Delay1()
+    {
+        yield return new WaitForSeconds(6);
+        Global.super1 = false;
+    }
+
+    IEnumerator Delay2()
+    {
+        yield return new WaitForSeconds(6);
+        Global.super2 = false;
     }
 
 }

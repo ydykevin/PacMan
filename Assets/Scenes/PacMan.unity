@@ -5146,7 +5146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113787733}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1, y: 5, z: 0}
+  m_LocalPosition: {x: 1, y: 7, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 2118334952}
@@ -7722,7 +7722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764b751600ccf1c4b98636b4c175c61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toRight: 1
+  isLeft: 1
 --- !u!58 &183731158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8019,6 +8019,11 @@ MonoBehaviour:
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
   score: {fileID: 309962263}
+  player: {fileID: 1883194290}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
 --- !u!50 &194456059
 Rigidbody2D:
   serializedVersion: 4
@@ -9415,7 +9420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269098920}
   m_LocalRotation: {x: -0, y: -0, z: -0.70710695, w: 0.70710665}
-  m_LocalPosition: {x: -1, y: 7, z: 0}
+  m_LocalPosition: {x: -1, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2118334952}
@@ -14183,7 +14188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434430144}
   m_LocalRotation: {x: -0, y: -0, z: -0.70710665, w: -0.7071069}
-  m_LocalPosition: {x: 1, y: 7, z: 0}
+  m_LocalPosition: {x: 1, y: 5, z: 0}
   m_LocalScale: {x: 0.99999976, y: 0.99999976, z: 1}
   m_Children: []
   m_Father: {fileID: 2118334952}
@@ -26674,7 +26679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764b751600ccf1c4b98636b4c175c61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toRight: 0
+  isLeft: 0
 --- !u!212 &861018457
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32669,7 +32674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087240433}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 5, z: 0}
+  m_LocalPosition: {x: -1, y: 7, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 2118334952}
@@ -36380,7 +36385,6 @@ GameObject:
   - component: {fileID: 1195629225}
   - component: {fileID: 1195629224}
   - component: {fileID: 1195629223}
-  - component: {fileID: 1195629226}
   - component: {fileID: 1195629227}
   m_Layer: 0
   m_Name: Main Camera
@@ -36453,21 +36457,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1195629226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195629222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0bc67ef6a03a9049a52b659226ea4d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  over: {fileID: 293053028}
-  win: {fileID: 980005754}
-  pArr: {fileID: 812165283}
 --- !u!114 &1195629227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36482,11 +36471,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pArr: {fileID: 812165283}
   spArr: {fileID: 645585054}
+  spArr2: {fileID: 0}
   over: {fileID: 293053028}
   win: {fileID: 980005754}
   score: {fileID: 309962263}
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
+  pArr2: {fileID: 0}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
 --- !u!1001 &1202264772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45949,6 +45944,11 @@ MonoBehaviour:
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
   score: {fileID: 309962263}
+  player: {fileID: 1883194290}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
 --- !u!50 &1507181054
 Rigidbody2D:
   serializedVersion: 4
@@ -50331,6 +50331,11 @@ MonoBehaviour:
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
   score: {fileID: 309962263}
+  player: {fileID: 1883194290}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
 --- !u!50 &1684888334
 Rigidbody2D:
   serializedVersion: 4
@@ -59576,7 +59581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047532008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 664113486}
@@ -59638,6 +59643,11 @@ MonoBehaviour:
   life3: {fileID: 1505970124}
   life2: {fileID: 2007958277}
   score: {fileID: 309962263}
+  player: {fileID: 1883194290}
+  mScore1: {fileID: 0}
+  mScore2: {fileID: 0}
+  win1: {fileID: 0}
+  win2: {fileID: 0}
 --- !u!95 &2047532014
 Animator:
   serializedVersion: 3
@@ -59927,7 +59937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065743895}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: -0, y: 7, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 2118334952}
