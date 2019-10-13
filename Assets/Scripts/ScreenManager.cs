@@ -20,17 +20,21 @@ public class ScreenManager : MonoBehaviour
     
     public Text mScore1;
     public Text mScore2;
+    public Image tut;
+    private AudioManager am;
 
     // Start is called before the first frame update
     void Start()
     {
+        am = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         Global.finish = true;
         StartCoroutine(delay());
     }
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "PacMan")
+        //Check if all pills are consumed and set game state
+        if (SceneManager.GetActiveScene().name == "PacMan" && !Global.finish)
         {
             bool done = true;
             foreach (Transform child in pArr.transform)
@@ -43,8 +47,9 @@ public class ScreenManager : MonoBehaviour
             }
             if (done)
             {
-                win.SetActive(true);
+                am.playWin();
                 Global.finish = true;
+                StartCoroutine(singleWin());
             }
         }
         else if (SceneManager.GetActiveScene().name == "Multi"&&!Global.finish)
@@ -58,8 +63,11 @@ public class ScreenManager : MonoBehaviour
                     break;
                 }
             }
+            //P1 consumed all pills
             if (done1)
             {
+                am.superpill.Stop();
+                am.playMultiScore();
                 Global.finish = true;
                 Global.score1++;
                 mScore1.text = Global.score1 + "          ";
@@ -82,8 +90,11 @@ public class ScreenManager : MonoBehaviour
                     break;
                 }
             }
+            //P2 consumed all pills
             if (done2)
             {
+                am.superpill.Stop();
+                am.playMultiScore();
                 Global.finish = true;
                 Global.score2++;
                 mScore2.text = "          "+Global.score2 ;
@@ -116,8 +127,22 @@ public class ScreenManager : MonoBehaviour
         resetGame();
     }
 
+    public void showTutorial()
+    {
+        tut.gameObject.SetActive(true);
+    }
+
+    public void closeTutorial()
+    {
+        tut.gameObject.SetActive(false);
+    }
+
     public void nextLevel()
     {
+        if (am.win.isPlaying)
+        {
+            am.win.Stop();
+        }
         resetGame();
     }
 
@@ -183,12 +208,12 @@ public class ScreenManager : MonoBehaviour
 
         over.SetActive(false);
         win.SetActive(false);
+        am.playReady();
         StartCoroutine(delay());
     }
 
     void resetPill2()
     {
-
         foreach (Transform child in pArr.transform)
         {
             child.gameObject.SetActive(true);
@@ -205,8 +230,14 @@ public class ScreenManager : MonoBehaviour
         {
             child.gameObject.GetComponent<Renderer>().enabled = true;
         }
-
+        am.playReady();
         StartCoroutine(delay());
+    }
+
+    IEnumerator singleWin()
+    {
+        yield return new WaitForSeconds(5);
+        win.SetActive(true);
     }
 
     IEnumerator multiScore()
@@ -235,20 +266,24 @@ public class ScreenManager : MonoBehaviour
 
     IEnumerator p1Win()
     {
-        yield return new WaitForSeconds(3);
         win1.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
     }
 
     IEnumerator p2Win()
     {
-        yield return new WaitForSeconds(3);
         win2.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
     }
 
     IEnumerator delay()
     {
         yield return new WaitForSeconds(3);
         Global.finish = false;
+        if (SceneManager.GetActiveScene().name != "Menu"&& !am.bgm.isPlaying)
+        {
+            am.playBGM();
+        }
     }
 
 }

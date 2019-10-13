@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     {
         if (!Global.finish)
         {
+            //Player input in different modes
             if (tag=="Player"||tag=="Player2")
             {
                 if (Input.GetKeyDown(KeyCode.UpArrow))

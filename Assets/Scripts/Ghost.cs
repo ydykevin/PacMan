@@ -30,10 +30,12 @@ public class Ghost : MonoBehaviour
     private bool left;
     private bool right;
     private SpriteRenderer sr;
+    private AudioManager am;
 
     // Start is called before the first frame update
     void Start()
     {
+        am = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         GameObject[] gArr = GameObject.FindGameObjectsWithTag(tag);
         sr = gameObject.GetComponent<SpriteRenderer>();
         foreach (GameObject g in gArr)
@@ -50,7 +52,7 @@ public class Ghost : MonoBehaviour
         {
             movement = Global.ghostSpeed * Time.deltaTime;
             detectOpenArea();
-            //Select moving pattern
+            //Select moving pattern in different modes
             if (tag == "Ghost")
             {
                 if (Global.super)
@@ -161,7 +163,6 @@ public class Ghost : MonoBehaviour
         {
             up = true;
             arr.Add(new GhostMovement(Quaternion.Euler(0f, 0f, 0f), new Vector2(transform.position.x, transform.position.y + movement), 1, Vector2.up, 2));
-            //Debug.Log("up");
         }
 
         hit = Physics2D.CircleCast(transform.position, detectRad, Vector2.down, 1f);
@@ -169,7 +170,6 @@ public class Ghost : MonoBehaviour
         {
             down = true;
             arr.Add(new GhostMovement(Quaternion.Euler(0f, 0f, 0f), new Vector2(transform.position.x, transform.position.y - movement), 2, Vector2.down, 1));
-            //Debug.Log("down");
         }
 
         hit = Physics2D.CircleCast(transform.position, detectRad, Vector2.left, 1f);
@@ -177,7 +177,6 @@ public class Ghost : MonoBehaviour
         {
             left = true;
             arr.Add(new GhostMovement(Quaternion.Euler(0f, 0f, 0f), new Vector2(transform.position.x - movement, transform.position.y), 3, Vector2.left, 4));
-            //Debug.Log("left");
         }
 
         hit = Physics2D.CircleCast(transform.position, detectRad, Vector2.right, 1f);
@@ -185,7 +184,6 @@ public class Ghost : MonoBehaviour
         {
             right = true;
             arr.Add(new GhostMovement(Quaternion.Euler(0f, 0f, 0f), new Vector2(transform.position.x + movement, transform.position.y), 4, Vector2.right, 3));
-            //Debug.Log("right");
         }
     }
 
@@ -272,7 +270,6 @@ public class Ghost : MonoBehaviour
             if (i <= 5)
             {
                 direction = d3;
-                Debug.Log("5%");
             }
             else if ((i >= 6 && i <= 65 && r1))
             {
@@ -491,10 +488,12 @@ public class Ghost : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Handle ghost and player collision in different states and different modes
         if (collision.gameObject.tag == "Player")
         {
             if (Global.super)
             {
+                am.playEatGhost();
                 score.text = (int.Parse(score.text) + 30) + "";
                 resetPosition();
             }
@@ -504,11 +503,13 @@ public class Ghost : MonoBehaviour
                 Global.finish = true;
                 if (Global.life != 1)
                 {
+                    am.playKill();
                     StartCoroutine(singleDie());
                     Global.life--;
                 }
                 else
                 {
+                    am.playLose();
                     StartCoroutine(singleOver());
                 }
             }
@@ -516,6 +517,7 @@ public class Ghost : MonoBehaviour
         {
             if (Global.super1)
             {
+                am.playEatGhost();
                 resetPosition();
             }
             else
@@ -526,10 +528,14 @@ public class Ghost : MonoBehaviour
                 mScore2.text = "          " + Global.score2;
                 if (Global.score2!=Global.toWin)
                 {
+                    am.superpill.Stop();
+                    am.playKill();
                     StartCoroutine(multiDie());
                 }
                 else
                 {
+                    am.superpill.Stop();
+                    am.playWin();
                     StartCoroutine(p2Win());
                 }
             }
@@ -538,6 +544,7 @@ public class Ghost : MonoBehaviour
         {
             if (Global.super2)
             {
+                am.playEatGhost();
                 resetPosition();
             }
             else
@@ -548,10 +555,14 @@ public class Ghost : MonoBehaviour
                 mScore1.text = Global.score1 + "          ";
                 if (Global.score1 != Global.toWin)
                 {
+                    am.superpill.Stop();
+                    am.playKill();
                     StartCoroutine(multiDie());
                 }
                 else
                 {
+                    am.superpill.Stop();
+                    am.playWin();
                     StartCoroutine(p1Win());
                 }
             }
@@ -576,6 +587,7 @@ public class Ghost : MonoBehaviour
         {
             life2.SetActive(false);
         }
+        am.playReady();
         StartCoroutine(delay());
     }
     
@@ -607,6 +619,7 @@ public class Ghost : MonoBehaviour
             g.GetComponent<Ghost>().resetColor();
         }
         resetPill();
+        am.playReady();
         StartCoroutine(delay());
     }
 
@@ -638,14 +651,14 @@ public class Ghost : MonoBehaviour
 
     IEnumerator p1Win()
     {
-        yield return new WaitForSeconds(3);
         win1.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
     }
 
     IEnumerator p2Win()
     {
-        yield return new WaitForSeconds(3);
         win2.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
     }
     
     public void resetColor() {

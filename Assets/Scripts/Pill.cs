@@ -25,9 +25,12 @@ public class Pill : MonoBehaviour
         {
             score.text = (int.Parse(score.text) + 10) + "";
             gameObject.SetActive(false);
-        }else if (collision.tag == "Player1"|| collision.tag == "Player2")
+            GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>().playEat();
+        }
+        else if (collision.tag == "Player1"|| collision.tag == "Player2")
         {
             gameObject.SetActive(false);
+            GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>().playEat();
         }
     }
     

@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Send player and ghost to correct place
         if (collision.tag == "Player" || collision.tag == "Player1" || collision.tag == "Player2")
         {
             collision.gameObject.GetComponent<Player>().setPortalPosition(isLeft);

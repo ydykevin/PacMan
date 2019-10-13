@@ -16,6 +16,7 @@ public class Banner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Banner flashing every 0.5 second
         if (Time.time - currTime >= 0.5f)
         {
             currTime = Time.time;
